@@ -1,0 +1,3 @@
+This is a game of classic snake made in Processing and Java. The only system a binary has been tested on is OSX. On OSX the high scores file and source code are inside the bundle. 
+
+To reset the high scores, delete the highscores.tsv file in the data folder. Snake will create a new highscores file the next time it is opened.
