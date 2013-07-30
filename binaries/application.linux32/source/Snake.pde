@@ -26,6 +26,7 @@ void setup() {
     highScores = new Table();
     highScores.addColumn("Name");
     highScores.addColumn("Score");
+    highScores.addColumn("# of Boxes");
     for (int i = 0; i < 10; i++)
       highScores.addRow();
     for(int i = 0; i < 10; i++)
@@ -298,15 +299,17 @@ void gameOver() {
   textFont(gameOver);
   textSize(90);
   text("Game Over", width/2, height/8);
-  String[] names = {"Name"};
+  String[] names = {"Name"}, scores = {"Score"}, tabnumbox = {"# of Boxes"};
   names = concat(names, highScores.getStringColumn("Name"));
-  String[] scores = {"Score"};
-  for (int i = 0; i < 10; i++)
+  for (int i = 0; i < 10; i++){
     scores = append(scores, str(highScores.getInt(i, "Score")));
+    tabnumbox = append(tabnumbox, str(highScores.getInt(i, "# of Boxes")));
+  }
   fill(0);
   textSize(30);
   text(join(names, "\n\n"), width/4, height/4);
-  text(join(scores, "\n\n"), (width*3)/4, height/4); 
+  text(join(scores, "\n\n"), width/2, height/4); 
+  text(join(tabnumbox, "\n\n"), (width*3)/4, height/4);
 }
 
 int hiScore() {
@@ -335,9 +338,11 @@ int hiScore() {
 void enterName(int i) {
   for (int j = 8; j >= i; j--) {
     highScores.setInt(j + 1, "Score", highScores.getInt(j, "Score"));
+    highScores.setInt(j + 1, "# of Boxes", highScores.getInt(j, "# of Boxes"));
     highScores.setString(j + 1, "Name", highScores.getString(j, "Name"));
   }
   highScores.setInt(i, "Score", snake.size());
+  highScores.setInt(i, "# of Boxes", int(numboxesx * numboxesy));
   highScores.setString(i, "Name", name.toString());
   loop();
   gameOver();
