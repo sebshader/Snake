@@ -43,7 +43,7 @@ void setup() {
 }
 
 void draw() {
-  if (!gameover && !hiscore && gamestarted){
+  if (!gameover && gamestarted){
     if (keypressed) {
       dir.set(byte(-ky.x), byte(-ky.y));
       keypressed = false;
@@ -83,6 +83,7 @@ void draw() {
     image(buffer, 0, 0);
     for (int i = 1; i < snake.size(); i++)
       if (((IntVector) snake.get(0)).eq((IntVector) snake.get(i))) {
+        gameover = true;
         highscore = hiScore();
         if (highscore == -1){
           fill(255, 0, 0);
@@ -120,7 +121,7 @@ void draw() {
 }
 
 void keyPressed() {
-  if(!gameover && gamestarted && !hiscore){
+  if(!gameover && gamestarted){
     if (key == 'p')
       if (!paused) {
         paused = true;
@@ -286,7 +287,6 @@ void startScreen() {
 
 void gameOver() {
   saveTable(highScores, filename, "tsv");
-  gameover = true;
   freezescreen = true;
   framerate = 12;
   gamovrcnt = 0;
