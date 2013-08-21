@@ -26,6 +26,7 @@ void setup() {
     highScores = new Table();
     highScores.addColumn("Name");
     highScores.addColumn("Score");
+    highScores.addColumn("# of Boxes");
     for (int i = 0; i < 10; i++)
       highScores.addRow();
     for(int i = 0; i < 10; i++)
@@ -42,23 +43,7 @@ void setup() {
 }
 
 void draw() {
-  if (!gamestarted) {
-    if(!beguninput)
-      startScreen();
-  } 
-  else if (hiscore){
-    ;
-  }
-  else if (gameover || freezescreen) {
-    gamovrcnt++;
-    if (gamovrcnt == 32) {
-      freezescreen = false;
-      textSize(40);
-      fill(255, 0, 255);
-      text("hit any key to go to the main screen", width/2, (height*7)/8);
-    }
-  }
-  else {
+  if (!gameover && !hiscore && gamestarted){
     if (keypressed) {
       dir.set(byte(-ky.x), byte(-ky.y));
       keypressed = false;
@@ -116,9 +101,84 @@ void draw() {
         break;
       }
   }
+  else if (!gamestarted) {
+     if(!beguninput)
+      startScreen();
+  } 
+  else if (hiscore){
+    ;
+  }
+  else if (gameover || freezescreen) {
+    gamovrcnt++;
+    if (gamovrcnt == 32) {
+      freezescreen = false;
+      textSize(40);
+      fill(255, 0, 255);
+      text("hit any key to go to the main screen", width/2, (height*7)/8);
+    }
+  }
 }
 
 void keyPressed() {
+  if(!gameover && gamestarted && !hiscore){
+    if (key == 'p')
+      if (!paused) {
+        paused = true;
+        noLoop();
+      } 
+      else {
+        paused = false;
+        loop();
+      }
+    if (!paused) {
+      if (key == CODED) {
+          if (keyCode == UP && (dir.numba != 1) && (dir.numba !=3)) {
+          ky.set(byte(1));
+          keypressed = true;
+          redraw();
+        }
+        else if (keyCode == DOWN && (dir.numba != 3) && (dir.numba !=1)) {
+          ky.set(byte(3));
+          keypressed = true;
+          redraw();
+        }
+        else if (keyCode == LEFT && (dir.numba != 2) && (dir.numba !=0)) {
+          ky.set(byte(2));
+          keypressed = true;
+          redraw();
+        }
+        else if (keyCode == RIGHT && (dir.numba !=0) && (dir.numba !=2)) {
+          ky.set(byte(0));
+          keypressed = true;
+          redraw();
+        }
+      } 
+      else if (key == 'k' && (dir.numba != 1) && (dir.numba != 3)) {
+        ky.set(byte(1));
+        keypressed = true;
+        redraw();
+      }
+      else if (key == 'j' && (dir.numba != 3) && (dir.numba != 1)) {
+        ky.set(byte(3));
+        keypressed = true;
+        redraw();
+      }
+      else if (key == 'h' && (dir.numba != 2) && (dir.numba !=0)) {
+        ky.set(byte(2));
+        keypressed = true;
+        redraw();
+      }
+      else if (key == 'l' && (dir.numba !=0) && (dir.numba != 2)) {
+        ky.set(byte(0));
+        keypressed = true;
+        redraw();
+      }
+    }
+    if (key == 'x')
+      frameRate(constrain(framerate++, 12, 60));
+    if (key == 'z')
+      frameRate(constrain(framerate--, 12, 60));
+  }
   if (hiscore) {
     if (key != CODED) {
       if (key != ENTER && key != RETURN) {
@@ -136,111 +196,51 @@ void keyPressed() {
       }
     }
   }
-  else {
-    if (key == 'q')
-      exit();
-    if (!gamestarted) {
-      if(key >= '0' && key <= '9'){
-        if(!beguninput){
-            name.setLength(0);
-            beguninput = true;
-        }
-        name.append(key); 
-        image(scoreInput, 0, 0);
-        message[1] = name.toString();
-        text(join(message, ""), (width*3)/4, (height*3)/4);
-        redraw();
+  else if (key == 'q')
+    exit();
+  else if(freezescreen)
+    ;
+  else if (gameover && !freezescreen){
+    gameover = false;
+    gamestarted = false;
+    startScreen();
+  }
+  else if (!gamestarted) {
+    if(key >= '0' && key <= '9'){
+      if(!beguninput){
+          name.setLength(0);
+          beguninput = true;
       }
-      else if(beguninput && (key == BACKSPACE || key == DELETE)){
-        name.deleteCharAt((name.length() - 1));
-        image(scoreInput, 0, 0);
-        message[1] = name.toString();
-        text(join(message, ""), (width*3)/4, (height*3)/4);
-        redraw();
-      }
-      else if(beguninput && (key == ENTER || key == RETURN)){
-        beguninput = false;
-        numboxesx = int(name.toString());
-        wordboxes = str(numboxesx);
-        println(numboxesx);
-        spacingx = width/numboxesx;
-        numboxesy = int(height/spacingx);
-        spacingy = height/numboxesy;
-        startScreen();
-        redraw();
-      }
-      else {
-        beguninput = false;
-        gamestarted = true;
-        loop();
-      }
+      name.append(key); 
+      image(scoreInput, 0, 0);
+      message[1] = name.toString();
+      text(join(message, ""), (width*3)/4, (height*3)/4);
+      redraw();
     }
-    else if (freezescreen)
-      ;
-    else if (gameover && !freezescreen) {
-      gameover = false;
-      gamestarted = false;
+    else if(beguninput && (key == BACKSPACE || key == DELETE)){
+      name.deleteCharAt((name.length() - 1));
+      image(scoreInput, 0, 0);
+      message[1] = name.toString();
+      text(join(message, ""), (width*3)/4, (height*3)/4);
+      redraw();
+    }
+    else if(beguninput && (key == ENTER || key == RETURN)){
+      beguninput = false;
+      numboxesx = int(name.toString());
+      wordboxes = str(numboxesx);
+      spacingx = width/numboxesx;
+      numboxesy = int(height/spacingx);
+      spacingy = height/numboxesy;
+      startScreen();
+      redraw();
     }
     else {
-      if (key == 'p')
-        if (!paused) {
-          paused = true;
-          noLoop();
-        } 
-        else {
-          paused = false;
-          loop();
-        }
-      if (!paused) {
-        if (key == CODED) {
-          if (keyCode == UP && (dir.numba != 1) && (dir.numba !=3)) {
-            ky.set(byte(1));
-            keypressed = true;
-            redraw();
-          }
-          else if (keyCode == DOWN && (dir.numba != 3) && (dir.numba !=1)) {
-            ky.set(byte(3));
-            keypressed = true;
-            redraw();
-          }
-          else if (keyCode == LEFT && (dir.numba != 2) && (dir.numba !=0)) {
-            ky.set(byte(2));
-            keypressed = true;
-            redraw();
-          }
-          else if (keyCode == RIGHT && (dir.numba !=0) && (dir.numba !=2)) {
-            ky.set(byte(0));
-            keypressed = true;
-            redraw();
-          }
-        } 
-        else if (key == 'k' && (dir.numba != 1) && (dir.numba != 3)) {
-          ky.set(byte(1));
-          keypressed = true;
-          redraw();
-        }
-        else if (key == 'j' && (dir.numba != 3) && (dir.numba != 1)) {
-          ky.set(byte(3));
-          keypressed = true;
-          redraw();
-        }
-        else if (key == 'h' && (dir.numba != 2) && (dir.numba !=0)) {
-          ky.set(byte(2));
-          keypressed = true;
-          redraw();
-        }
-        else if (key == 'l' && (dir.numba !=0) && (dir.numba != 2)) {
-          ky.set(byte(0));
-          keypressed = true;
-          redraw();
-        }
-      }
-      if (key == 'x')
-        frameRate(constrain(framerate++, 12, 60));
-      if (key == 'z')
-        frameRate(constrain(framerate--, 12, 60));
+      beguninput = false;
+      gamestarted = true;
+      loop();
     }
   }
+
 }
 
 void startScreen() {
@@ -298,15 +298,17 @@ void gameOver() {
   textFont(gameOver);
   textSize(90);
   text("Game Over", width/2, height/8);
-  String[] names = {"Name"};
+  String[] names = {"Name"}, scores = {"Score"}, tabnumbox = {"# of Boxes"};
   names = concat(names, highScores.getStringColumn("Name"));
-  String[] scores = {"Score"};
-  for (int i = 0; i < 10; i++)
+  for (int i = 0; i < 10; i++){
     scores = append(scores, str(highScores.getInt(i, "Score")));
+    tabnumbox = append(tabnumbox, str(highScores.getInt(i, "# of Boxes")));
+  }
   fill(0);
   textSize(30);
   text(join(names, "\n\n"), width/4, height/4);
-  text(join(scores, "\n\n"), (width*3)/4, height/4); 
+  text(join(scores, "\n\n"), width/2, height/4); 
+  text(join(tabnumbox, "\n\n"), (width*3)/4, height/4);
 }
 
 int hiScore() {
@@ -335,9 +337,11 @@ int hiScore() {
 void enterName(int i) {
   for (int j = 8; j >= i; j--) {
     highScores.setInt(j + 1, "Score", highScores.getInt(j, "Score"));
+    highScores.setInt(j + 1, "# of Boxes", highScores.getInt(j, "# of Boxes"));
     highScores.setString(j + 1, "Name", highScores.getString(j, "Name"));
   }
   highScores.setInt(i, "Score", snake.size());
+  highScores.setInt(i, "# of Boxes", int(numboxesx * numboxesy));
   highScores.setString(i, "Name", name.toString());
   loop();
   gameOver();

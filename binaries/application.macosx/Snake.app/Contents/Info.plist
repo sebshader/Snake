@@ -21,7 +21,7 @@
 	<key>CFBundleIconFile</key>
 	<string>snake.icns</string>
 	<key>CFBundleIdentifier</key>
-	<string>snake</string>
+	<string>Snake</string>
 	<key>LSUIPresentationMode</key>
 	<integer>4</integer>
 	<key>LSArchitecturePriority</key>
@@ -34,11 +34,11 @@
 		<key>VMOptions</key>
 		<string></string>
 		<key>MainClass</key>
-		<string>snake</string>
+		<string>Snake</string>
 		<key>JVMVersion</key>
 		<string>1.6*</string>
 		<key>ClassPath</key>
-		<string>$JAVAROOT/snake.jar:$JAVAROOT/core.jar:$JAVAROOT/jogl-all.jar:$JAVAROOT/gluegen-rt.jar:$JAVAROOT/jogl-all-natives-macosx-universal.jar:$JAVAROOT/gluegen-rt-natives-macosx-universal.jar</string>
+		<string>$JAVAROOT/Snake.jar:$JAVAROOT/core.jar:$JAVAROOT/jogl-all.jar:$JAVAROOT/gluegen-rt.jar:$JAVAROOT/jogl-all-natives-macosx-universal.jar:$JAVAROOT/gluegen-rt-natives-macosx-universal.jar</string>
 		<key>Properties</key>
 		<dict>
 			<key>apple.laf.useScreenMenuBar</key>
