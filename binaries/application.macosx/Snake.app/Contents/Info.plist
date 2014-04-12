@@ -2,60 +2,61 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleName</key>
-	<string>Snake</string>
-	<key>CFBundleVersion</key>
-	<string>1.0</string>
-	<key>CFBundleAllowMixedLocalizations</key>
-	<string>true</string>
-	<key>CFBundleExecutable</key>
-	<string>JavaApplicationStub</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
-	<key>CFBundlePackageType</key>
-	<string>APPL</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
+	<key>CFBundleExecutable</key>
+	<string>snake</string>
 	<key>CFBundleIconFile</key>
 	<string>snake.icns</string>
 	<key>CFBundleIdentifier</key>
-	<string>Snake</string>
-	<key>LSUIPresentationMode</key>
-	<integer>4</integer>
+	<string>snake</string>
+	<key>CFBundleDisplayName</key>
+	<string>snake</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>snake</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1</string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>Your copyright here</string>
+	<key>CFBundleGetInfoString</key>
+	<string>Created with Processing</string>
+	<key>JVMRuntime</key>
+	<string>jdk1.7.0_51.jdk</string>
+	<key>JVMMainClassName</key>
+	<string>snake</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>10.7.3</string>
+	<key>NSHighResolutionCapable</key>
+	<true/>
 	<key>LSArchitecturePriority</key>
 	<array>
 		<string>x86_64</string>
-		<string>i386</string>
 	</array>
-	<key>Java</key>
+	<key>LSEnvironment</key>
 	<dict>
-		<key>VMOptions</key>
-		<string></string>
-		<key>MainClass</key>
-		<string>Snake</string>
-		<key>JVMVersion</key>
-		<string>1.6*</string>
-		<key>ClassPath</key>
-		<string>$JAVAROOT/Snake.jar:$JAVAROOT/core.jar:$JAVAROOT/jogl-all.jar:$JAVAROOT/gluegen-rt.jar:$JAVAROOT/jogl-all-natives-macosx-universal.jar:$JAVAROOT/gluegen-rt-natives-macosx-universal.jar</string>
-		<key>Properties</key>
-		<dict>
-			<key>apple.laf.useScreenMenuBar</key>
-			<string>true</string>
-			<key>apple.awt.showGrowBox</key>
-			<string>false</string>
-			<key>com.apple.smallTabs</key>
-			<string>true</string>
-			<key>apple.awt.Antialiasing</key>
-			<string>false</string>
-			<key>apple.awt.TextAntialiasing</key>
-			<string>true</string>
-			<key>com.apple.hwaccel</key>
-			<string>true</string>
-			<key>apple.awt.use-file-dialog-packages</key>
-			<string>false</string>
-		</dict>
+		<key>LC_CTYPE</key>
+		<string>UTF-8</string>
 	</dict>
+	<key>LSUIPresentationMode</key>
+	<integer>4</integer>
+	<key>JVMOptions</key>
+	<array>
+		<string>-Xdock:icon=Contents/Resources/sketch.icns</string>
+		<string>-Dapple.laf.useScreenMenuBar=true</string>
+		<string>-Dcom.apple.macos.use-file-dialog-packages=true</string>
+		<string>-Dcom.apple.macos.useScreenMenuBar=true</string>
+		<string>-Dcom.apple.mrj.application.apple.menu.about.name=snake</string>
+		<string>-Dcom.apple.smallTabs=true</string>
+	</array>
+	<key>JVMArguments</key>
+	<array/>
 </dict>
 </plist>
